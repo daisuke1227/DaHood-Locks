@@ -330,7 +330,7 @@ getgenv().PredictionValue = 0.15
     end)
 
 game:GetService("RunService").RenderStepped:connect(function()
-    if getgenv().AntiGroundShots == true and Plr.Character and Plr.Character:FindFirstChild("Humanoid") then
+    if Plr and Plr.Character and getgenv().AntiGroundShots == true and Plr.Character:FindFirstChild("Humanoid") then
         local humanoid = Plr.Character.Humanoid
         if humanoid:GetState() == Enum.HumanoidStateType.Jumping then
             local rootPart = Plr.Character:FindFirstChild("HumanoidRootPart")
