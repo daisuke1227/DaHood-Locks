@@ -330,12 +330,18 @@ getgenv().PredictionValue = 0.15
     end)
 
 game:GetService("RunService").RenderStepped:connect(function()
-if getgenv().AntiGroundShots == true and Plr.Character.Humanoid.Jump == true and Plr.Character.Humanoid.FloorMaterial == Enum.Material.Air then
-    pcall(function()
-        local TargetVelv5 = Plr.Character.HumanoidRootPart
-TargetVelv5.Velocity = Vector3.new(TargetVelv5.Velocity.X, math.abs(TargetVelv5.Velocity.Y * 0.36),
- TargetVelv5.Velocity.Z)
-        TargetVelv5.AssemblyLinearVelocity = Vector3.new(TargetVelv5.Velocity.X, math.abs(TargetVelv5.Velocity.Y * 0.36), TargetVelv5.Velocity.Z)
-    end)
+    if getgenv().AntiGroundShots == true and Plr.Character and Plr.Character:FindFirstChild("Humanoid") then
+        local humanoid = Plr.Character.Humanoid
+        if humanoid:GetState() == Enum.HumanoidStateType.Jumping then
+            local rootPart = Plr.Character:FindFirstChild("HumanoidRootPart")
+            if rootPart then
+                if humanoid.FloorMaterial == Enum.Material.Air then
+                    pcall(function()
+                        rootPart.Velocity = Vector3.new(rootPart.Velocity.X, math.abs(rootPart.Velocity.Y * 0.36), rootPart.Velocity.Z)
+                        rootPart.AssemblyLinearVelocity = Vector3.new(rootPart.Velocity.X, math.abs(rootPart.Velocity.Y * 0.36), rootPart.Velocity.Z)
+                    end)
+                end
+            end
+        end
     end
 end)
